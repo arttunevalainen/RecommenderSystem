@@ -1,0 +1,19 @@
+{
+    "name": "recommendersystems",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "express": "^4.16.4",
+        "next": "^7.0.2",
+        "react": "^16.6.0",
+        "react-autobind": "^1.0.6",
+        "react-dom": "^16.6.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "dev": "node ssr-server.js"
+    },
+    "author": "",
+    "license": "ISC"
+}
