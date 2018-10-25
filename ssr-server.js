@@ -16,7 +16,8 @@ app.prepare().then(() => {
 
     //Rooting like this you can access localhost:3000/about which renders ./pages/about.js
     server.get('/about', (req, res) => {
-        console.log(req.query);
+        //console.error() is good for debugging
+        console.error("about requested");
         return app.render(req, res, '/about', req.query);
     });
         
@@ -37,6 +38,6 @@ app.prepare().then(() => {
 
 })
 .catch((exception) => {
-  console.error(exception.stack)
-  process.exit(1)
+    console.error(exception.stack)
+    process.exit(1)
 });
