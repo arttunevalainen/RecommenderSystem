@@ -1,0 +1,13 @@
+
+
+.mainContainer {
+    background-color: burlywood;
+    text-align: center;
+    margin: auto;
+}
+
+a {
+    margin: 10px;
+    color: white;
+    text-decoration: none;
+}

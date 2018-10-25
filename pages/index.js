@@ -4,6 +4,11 @@ import Link from './Link.js';
 
 import React from 'react';
 import autoBind from 'react-autobind';
+import Head from 'next/head';
+import Navigation from './navigation.js'
+import Counter from './Counter.js';
+
+import './styles.css';
 
 
 class Index extends React.Component {
@@ -20,6 +25,7 @@ class Index extends React.Component {
         this.setState({ number: number });
     }
 
+    //Example of multiple same components
     allLinks() {
 
         let links = [];
@@ -33,11 +39,29 @@ class Index extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="mainContainer">
+                <Head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <meta charSet="utf-8" />
+                </Head>
+
+                <style jsx global>{`
+                    body { 
+                        background: burlywood;
+                        color: black;
+                    }`}
+                </style>
+
+                <h2>Recommender System</h2>
+
+                <Navigation></Navigation>
+
                 {this.allLinks()}
 
-                Number: {this.state.number}
-                <button onClick={this.buttonClick}>Plus</button>
+                <Counter
+                    number={this.state.number}
+                    buttonClick={this.buttonClick}
+                ></Counter>
             </div>
         )
     }
