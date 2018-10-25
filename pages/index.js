@@ -1,5 +1,7 @@
 
+//Import new component.
 import Link from './Link.js';
+
 import React from 'react';
 import autoBind from 'react-autobind';
 

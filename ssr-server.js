@@ -1,30 +1,42 @@
 const express = require('express');
 const next = require('next');
     
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
-    
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
+
 app.prepare().then(() => {
+    //Start Express
     const server = express();
-        
-    server.get('*', (req, res) => {
-        return handle(req, res)
+
+
+
+    /** ROUTING */
+
+    //Rooting like this you can access localhost:3000/about which renders ./pages/about.js
+    server.get('/about', (req, res) => {
+        console.log(req.query);
+        return app.render(req, res, '/about', req.query);
     });
         
+    //Index.js
+    server.get('*', (req, res) => {
+        return handle(req, res);
+    });
+    
+    /** ROUTING END */
+
+
+
+    //Server will be online in https://localhost:3000
     server.listen(3000, (err) => {
         if (err) throw err
-        console.log('> Ready on http://localhost:3000')
-    });
-
-    server.get('/p/:id', (req, res) => {
-        const actualPage = '/post'
-        const queryParams = { id: req.params.id } 
-        app.render(req, res, actualPage, queryParams)
+        console.log('> Ready on http://localhost:3000');
     });
 
 })
-.catch((ex) => {
-  console.error(ex.stack)
+.catch((exception) => {
+  console.error(exception.stack)
   process.exit(1)
 });
