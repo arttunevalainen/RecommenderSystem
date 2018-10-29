@@ -5,6 +5,8 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+const axios = require('axios');
+
 
 app.prepare().then(() => {
     //Start Express
@@ -41,3 +43,4 @@ app.prepare().then(() => {
     console.error(exception.stack)
     process.exit(1)
 });
+
