@@ -5,13 +5,13 @@
  */
 
 
-var fs = require('fs');
+const fs = require('fs');
 const axios = require('axios');
-
+const convert = require('xml-js');
 
 // This is to test the function with command promptgetData();
-getData();
-//showData();
+//getData();
+showData();
 
 // Get the data and transform it to JSON
 async function getData() {
@@ -24,25 +24,27 @@ async function getData() {
         console.log(randomNumber);
 
         // Make a request for a user with a given ID if ID has not been used
+        //https://bgg-json.azurewebsites.net/thing/
         if (usedIds.indexOf(randomNumber) == -1) {
-            await axios.get('https://bgg-json.azurewebsites.net/thing/' + randomNumber)
-            .then(function (response) {
+            await axios.get('https://www.boardgamegeek.com/xmlapi/boardgame/' + randomNumber).then(function (response) {
 
-                console.log(response.data.isExpansion);
-                if(response.data.isExpansion) {
-                    console.log("Is Expansion so not including");
-                }
-                else if(response.data.rank === -1) {
-                    console.log("Rank is -1 so not including");
-                }
-                else {
+                let json = convert.xml2json(response.data, {compact: true, spaces: 4});
+                json = JSON.parse(json);
+                
+                if(json.boardgames.boardgame.boardgamemechanic != undefined) {
+                    console.log(json.boardgames.boardgame);
+
                     // Parse response to a string
-                    let responseString = JSON.stringify(response.data);
-                    console.log(responseString);
-
+                    let responseString = JSON.stringify(json.boardgames.boardgame);
+                    
                     // Add gameJson to games and add ID to used ID array
                     games.games.push(responseString);
                     usedIds.push(randomNumber);
+                    
+                    console.log("Boardgame found and updated.");
+                }
+                else {
+                    i--;
                 }
             })
             .catch(function (error) {
@@ -60,9 +62,6 @@ async function getData() {
         console.log('Updated!');
     });
 }
-
-
-
 
 
 function showData() {
