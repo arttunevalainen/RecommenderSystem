@@ -1,25 +1,31 @@
 
-//Import new component.
+//Imports
 import React from 'react';
-
 import Head from 'next/head';
+
+import BoardgameCard from './BoardgameCard.js';
 
 import '../styles/styles.css';
 
+
 class Boardgamelist extends React.Component {
 
-    async getData() {
-        return await import('../../datafetcher/Jsondata.json');
-    }
-
+    //Renders searched boardgames
     renderBoardgames() {
-
-        //Get from json and render them to boardgamelist
-        this.getData().then((data) => {
-            console.log(data.games[0]);
-        });
         
-        return <div>{this.props.search}</div>
+        if(this.props.games) {
+            let cards = this.props.games.map(function(game) {
+                console.log(game);
+                let jsongame = JSON.parse(game);
+                return <BoardgameCard gamedata={jsongame} key={jsongame.name}></BoardgameCard>
+            });
+            
+            return <div>{cards}</div>
+        }
+        else {
+            return <div></div>
+        }
+        
     }
 
     render() {

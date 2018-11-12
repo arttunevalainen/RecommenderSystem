@@ -6,7 +6,6 @@ import Head from 'next/head';
 
 import Boardgamelist from './components/Boardgamelist.js';
 
-//import datafetcher from './datafetcher/Jsondata.json';
 import './styles/styles.css';
 
 
@@ -19,6 +18,19 @@ class Index extends React.Component {
         autoBind(this);
     }
 
+    //Before component is rendered
+    componentWillMount() {
+        this.getData().then((data) => {
+            this.setState({games: data.games});
+        });
+    }
+
+    //Fetch json
+    async getData() {
+        return await import('../datafetcher/Jsondata.json');
+    }
+
+    //Handle changes in search field
     handleChange(event) {
         this.setState({ boardgamesearch: event.target.value });
     }
@@ -40,9 +52,9 @@ class Index extends React.Component {
 
                 <h2>Recommender System</h2>
 
-                Search: <input onChange={this.handleChange}></input>
+                <label>Search:</label> <input onChange={this.handleChange}></input>
 
-                <Boardgamelist search={this.state.boardgamesearch}></Boardgamelist>
+                <Boardgamelist search={this.state.boardgamesearch} games={this.state.games}></Boardgamelist>
             </div>
         )
     }
