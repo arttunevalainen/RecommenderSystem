@@ -13,7 +13,9 @@
         "react-dom": "^16.6.0",
         "xml-js": "^1.6.8"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "json-loader": "^0.5.7"
+    },
     "scripts": {
         "dev": "node ssr-server.js"
     },
