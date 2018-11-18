@@ -9,6 +9,9 @@ const fs = require('fs');
 const axios = require('axios');
 const convert = require('xml-js');
 
+//This is for testing github and pushing
+const test = 10;
+
 // This is to test the function with command promptgetData();
 getData();
 //showData();
@@ -30,7 +33,7 @@ async function getData() {
 
                 let json = convert.xml2json(response.data, {compact: true, spaces: 4});
                 json = JSON.parse(json);
-                
+
                 if(json.boardgames.boardgame.boardgamemechanic != undefined) {
 
                     //Parsing the json
@@ -72,7 +75,7 @@ async function getData() {
                         if(Array.isArray(boardgame.boardgamepublisher)) {
                             boardgame.boardgamepublisher.forEach(function(publisher) {
                                 boardgame.publishers.push(publisher._text);
-                                
+
                             });
                         }
                         else {
@@ -86,7 +89,7 @@ async function getData() {
                         if(Array.isArray(boardgame.boardgamecategory)) {
                             boardgame.boardgamecategory.forEach(function(category) {
                                 boardgame.categories.push(category._text);
-                                
+
                             });
                         }
                         else {
@@ -100,7 +103,7 @@ async function getData() {
                         if(Array.isArray(boardgame.boardgamemechanic)) {
                             boardgame.boardgamemechanic.forEach(function(mechanic) {
                                 boardgame.mechanics.push(mechanic._text);
-                                
+
                             });
                         }
                         else {
@@ -114,7 +117,7 @@ async function getData() {
                         if(Array.isArray(boardgame.boardgamedesigner)) {
                             boardgame.boardgamedesigner.forEach(function(designer) {
                                 boardgame.designers.push(designer._text);
-                                
+
                             });
                         }
                         else {
@@ -128,7 +131,7 @@ async function getData() {
                         if(Array.isArray(boardgame.boardgameartist)) {
                             boardgame.boardgameartist.forEach(function(artist) {
                                 boardgame.artists.push(artist._text);
-                                
+
                             });
                         }
                         else {
@@ -142,21 +145,21 @@ async function getData() {
                         if(Array.isArray(boardgame.boardgamefamily)) {
                             boardgame.boardgamefamily.forEach(function(family) {
                                 boardgame.family.push(family._text);
-                                
+
                             });
                         }
                         else {
                             boardgame.family.push(boardgame.boardgamefamily._text);
                         }
                     }
-                    
+
                     //Expansions
                     if(boardgame.boardgameexpansion) {
                         boardgame.expansions = [];
                         if(Array.isArray(boardgame.boardgameexpansion)) {
                             boardgame.boardgameexpansion.forEach(function(expansion) {
                                 boardgame.expansions.push(expansion._text);
-                                
+
                             });
                         }
                         else {
@@ -185,11 +188,11 @@ async function getData() {
 
                     // Parse response to a string
                     let responseString = JSON.stringify(boardgame);
-                    
+
                     // Add gameJson to games and add ID to used ID array
                     games.games.push(responseString);
                     usedIds.push(randomNumber);
-                    
+
                     console.log("Boardgame found and updated.");
                 }
                 else {
@@ -217,4 +220,3 @@ function showData() {
     const boardgames = require('./Jsondata.json');
     console.log(JSON.parse(boardgames.games[0]));
 }
-
