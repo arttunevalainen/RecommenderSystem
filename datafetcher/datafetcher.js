@@ -10,7 +10,7 @@ const axios = require('axios');
 const convert = require('xml-js');
 
 //This is for testing github and pushing
-const test = 10;
+const test = 11;
 
 // This is to test the function with command promptgetData();
 getData();
