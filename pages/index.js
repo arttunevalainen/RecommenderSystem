@@ -19,7 +19,7 @@ class Index extends React.Component {
     }
 
     //Before component is rendered
-    componentWillMount() {
+    componentDidMount() {
         this.getData().then((data) => {
             this.setState({games: data.games});
         });
@@ -32,7 +32,34 @@ class Index extends React.Component {
 
     //Handle changes in search field
     handleChange(event) {
-        this.setState({ boardgamesearch: event.target.value });
+        if(event.target.value.length > this.state.boardgamesearch.length) {
+            this.setState({ boardgamesearch: event.target.value });
+
+            this.changeGamesJSON();
+        }
+        else if(event.target.value.length < this.state.boardgamesearch.length) {
+            this.setState({ boardgamesearch: event.target.value });
+
+            this.getData().then((data) => {
+                this.setState({games: data.games});
+
+                this.changeGamesJSON();
+            });
+        }
+    }
+
+    changeGamesJSON() {
+        let games = this.state.games;
+        let newgames = [];
+
+        for(let i = 0; i < games.length; i++) {
+            let jsongame = JSON.parse(games[i]);
+            
+            if(jsongame.name.includes(event.target.value)) {
+                newgames.push(JSON.stringify(jsongame));
+            }
+        }
+        this.setState({ games: newgames });
     }
 
     render() {
@@ -52,7 +79,8 @@ class Index extends React.Component {
 
                 <h2>Recommender System</h2>
 
-                <label>Search:</label> <input onChange={this.handleChange}></input>
+                <label>Search:</label> 
+                <input onChange={this.handleChange}></input>
 
                 <Boardgamelist search={this.state.boardgamesearch} games={this.state.games}></Boardgamelist>
             </div>

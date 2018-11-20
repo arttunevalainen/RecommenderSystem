@@ -5,17 +5,14 @@ import Head from 'next/head';
 
 import BoardgameCard from './BoardgameCard.js';
 
-import '../styles/styles.css';
 
 
 class Boardgamelist extends React.Component {
 
     //Renders searched boardgames
     renderBoardgames() {
-        
         if(this.props.games) {
             let cards = this.props.games.map(function(game) {
-                console.log(game);
                 let jsongame = JSON.parse(game);
                 return <BoardgameCard gamedata={jsongame} key={jsongame.name}></BoardgameCard>
             });
@@ -23,9 +20,8 @@ class Boardgamelist extends React.Component {
             return <div>{cards}</div>
         }
         else {
-            return <div></div>
+            return <div>Loading boardgames...</div>
         }
-        
     }
 
     render() {
@@ -44,7 +40,6 @@ class Boardgamelist extends React.Component {
                 </style>
 
                 {this.renderBoardgames()}
-               
             </div>
         )
     }

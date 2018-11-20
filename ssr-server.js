@@ -5,22 +5,17 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const axios = require('axios');
 
 
 app.prepare().then(() => {
     //Start Express
     const server = express();
 
-
-
     /** ROUTING */
 
-    //Rooting like this you can access localhost:3000/about which renders ./pages/about.js
-    server.get('/about', (req, res) => {
-        //console.error() is good for debugging
-        console.error("about requested");
-        return app.render(req, res, '/about', req.query);
+    //Route for boardgames by ids
+    server.get('/boardgame/:id', (req, res) => {
+        return app.render(req, res, '/boardgamepage', { id: req.params.id })
     });
         
     //Index.js
@@ -30,14 +25,11 @@ app.prepare().then(() => {
     
     /** ROUTING END */
 
-
-
     //Server will be online in https://localhost:3000
     server.listen(3000, (err) => {
         if (err) throw err
         console.log('> Ready on http://localhost:3000');
     });
-
 })
 .catch((exception) => {
     console.error(exception.stack)
