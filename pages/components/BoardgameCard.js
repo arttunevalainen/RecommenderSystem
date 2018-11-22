@@ -10,7 +10,13 @@ const imagesrc = "http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-
 /** Styles */
 const col = {
     flex: 1,
-    margin: "auto"
+    marginTop: "1em"
+};
+
+const colFirst = {
+    flex: 1,
+    margin: "auto",
+    marginRight: "1em",
 };
 
 const thumbnailimage = {
@@ -33,13 +39,13 @@ class BoardgameCard extends React.Component {
             <div style={boardgamecardstyle}>
 
                 <style jsx global>{`
-                    body { 
+                    body {
                         background: white
                         color: black
                     }`}
                 </style>
 
-                <div style={col}>
+                <div style={colFirst}>
                     <h4>{this.props.gamedata.name}</h4>
                     {this.props.gamedata.thumbnail && <img style={thumbnailimage} src={this.props.gamedata.thumbnail}></img>}
                     {!this.props.gamedata.thumbnail && <img style={thumbnailimage} src={imagesrc}></img>}
@@ -58,7 +64,7 @@ class BoardgameCard extends React.Component {
                         {this.props.gamedata.publishers}
                     </div>
                 </div>
-               
+
             </div>
         )
     }

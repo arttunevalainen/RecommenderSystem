@@ -11,3 +11,33 @@ a {
     color: white;
     text-decoration: none;
 }
+
+ul {
+    text-align: left;
+    font-size: small;
+}
+
+h5 {
+    text-align: left;
+    margin-bottom: 0.65em;
+    font-size: 1em;
+}
+
+h4 {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 5px 0px 5px;
+}
+
+div {
+    margin-bottom: 1em;
+    text-align: left;
+    margin-top: 0em;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5em;
+}

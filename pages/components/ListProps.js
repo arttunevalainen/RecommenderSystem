@@ -6,7 +6,7 @@ import React from 'react';
 /** Styles */
 const col = {
     flex: 1,
-    margin: "auto"
+    marginTop: "1em"
 };
 
 const liststyle = {
@@ -36,4 +36,3 @@ class ListProps extends React.Component {
 }
 
 export default ListProps;
-
