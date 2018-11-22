@@ -57,11 +57,11 @@ class BoardgameCard extends React.Component {
                 <div style={col}>
                     <div>
                         <h5>Designer:</h5>
-                        {this.props.gamedata.designers}
+                        <p>{this.props.gamedata.designers}</p>
                     </div>
                     <div>
                         <h5>Publisher:</h5>
-                        {this.props.gamedata.publishers}
+                        <p>{this.props.gamedata.publishers}</p>
                     </div>
                 </div>
 
