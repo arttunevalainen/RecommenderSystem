@@ -18,11 +18,18 @@ const liststyle = {
 class ListProps extends React.Component {
 
     renderList() {
-        let listitems = this.props.listprops.map(function(item) {
-            return <li key={item}>{item}</li>
-        });
 
-        return <ul style={liststyle}>{listitems}</ul>
+        if(this.props.listprops) {
+            let listitems = this.props.listprops.map(function(item) {
+                return <li key={item}>{item}</li>
+            });
+    
+            return <ul style={liststyle}>{listitems}</ul>
+        }
+        else {
+            return <div></div>
+        }
+        
     }
 
     render() {

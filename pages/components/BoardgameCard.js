@@ -2,6 +2,8 @@
 //Imports
 import React from 'react';
 
+import Link from 'next/link'
+
 import ListProps from './ListProps.js';
 
 
@@ -35,37 +37,40 @@ const boardgamecardstyle = {
 class BoardgameCard extends React.Component {
 
     render() {
+        const href = "/boardgame/" + this.props.gamedata.id + "/";
+
         return (
-            <div style={boardgamecardstyle}>
+            <Link href={href}>
+                <div style={boardgamecardstyle}>
 
-                <style jsx global>{`
-                    body {
-                        background: white
-                        color: black
-                    }`}
-                </style>
+                    <style jsx global>{`
+                        body {
+                            background: white
+                            color: black
+                        }`}
+                    </style>
 
-                <div style={colFirst}>
-                    <h4>{this.props.gamedata.name}</h4>
-                    {this.props.gamedata.thumbnail && <img style={thumbnailimage} src={this.props.gamedata.thumbnail}></img>}
-                    {!this.props.gamedata.thumbnail && <img style={thumbnailimage} src={imagesrc}></img>}
-                </div>
-
-                <ListProps listprops={this.props.gamedata.categories} listname="Categories"></ListProps>
-                <ListProps listprops={this.props.gamedata.mechanics} listname="Mechanics"></ListProps>
-
-                <div style={col}>
-                    <div>
-                        <h5>Designer:</h5>
-                        <p>{this.props.gamedata.designers}</p>
+                    <div style={colFirst}>
+                        <h4>{this.props.gamedata.name}</h4>
+                        {this.props.gamedata.thumbnail && <img style={thumbnailimage} src={this.props.gamedata.thumbnail}></img>}
+                        {!this.props.gamedata.thumbnail && <img style={thumbnailimage} src={imagesrc}></img>}
                     </div>
-                    <div>
-                        <h5>Publisher:</h5>
-                        <p>{this.props.gamedata.publishers}</p>
+
+                    <ListProps listprops={this.props.gamedata.categories} listname="Categories"></ListProps>
+                    <ListProps listprops={this.props.gamedata.mechanics} listname="Mechanics"></ListProps>
+
+                    <div style={col}>
+                        <div>
+                            <h5>Designer:</h5>
+                            <p>{this.props.gamedata.designers}</p>
+                        </div>
+                        <div>
+                            <h5>Publisher:</h5>
+                            <p>{this.props.gamedata.publishers}</p>
+                        </div>
                     </div>
                 </div>
-
-            </div>
+            </Link>
         )
     }
 }

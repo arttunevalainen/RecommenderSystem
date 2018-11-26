@@ -187,10 +187,10 @@ async function getData() {
                     console.log(boardgame);
 
                     // Parse response to a string
-                    let responseString = JSON.stringify(boardgame);
+                    //let responseString = JSON.stringify(boardgame);
 
                     // Add gameJson to games and add ID to used ID array
-                    games.games.push(responseString);
+                    games.games.push(boardgame);
                     usedIds.push(randomNumber);
 
                     console.log("Boardgame found and updated.");

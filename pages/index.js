@@ -48,14 +48,21 @@ class Index extends React.Component {
         }
     }
 
+    //Manipulates games json file to match search.
     changeGamesJSON() {
         let games = this.state.games;
         let newgames = [];
 
         for(let i = 0; i < games.length; i++) {
             let jsongame = JSON.parse(games[i]);
+
+            //Change all to lowercase for search purposes.
+            let gamename = jsongame.name;
+            gamename = gamename.toLowerCase();
+            let searchvalue = event.target.value;
+            searchvalue = searchvalue.toLowerCase();
             
-            if(jsongame.name.includes(event.target.value)) {
+            if(gamename.includes(searchvalue)) {
                 newgames.push(JSON.stringify(jsongame));
             }
         }

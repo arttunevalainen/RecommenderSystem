@@ -13,8 +13,8 @@ class Boardgamelist extends React.Component {
     renderBoardgames() {
         if(this.props.games) {
             let cards = this.props.games.map(function(game) {
-                let jsongame = JSON.parse(game);
-                return <BoardgameCard gamedata={jsongame} key={jsongame.name}></BoardgameCard>
+                //let jsongame = JSON.parse(game);
+                return <BoardgameCard gamedata={game} key={game.name}></BoardgameCard>
             });
             
             return <div>{cards}</div>
