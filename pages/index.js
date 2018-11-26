@@ -54,7 +54,7 @@ class Index extends React.Component {
         let newgames = [];
 
         for(let i = 0; i < games.length; i++) {
-            let jsongame = JSON.parse(games[i]);
+            let jsongame = games[i];
 
             //Change all to lowercase for search purposes.
             let gamename = jsongame.name;
@@ -63,7 +63,7 @@ class Index extends React.Component {
             searchvalue = searchvalue.toLowerCase();
             
             if(gamename.includes(searchvalue)) {
-                newgames.push(JSON.stringify(jsongame));
+                newgames.push(jsongame);
             }
         }
         this.setState({ games: newgames });
