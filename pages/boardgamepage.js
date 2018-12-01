@@ -1,16 +1,19 @@
 
 //Imports
-import React from 'react';
+import { Component } from 'react';
 
 import Head from 'next/head';
 import autoBind from 'react-autobind';
 
 import ListProps from './components/ListProps.js';
+import Recommendations from './components/Recommendations.js';
+
+
 
 const imagesrc = "http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png";
 
 
-class Boardgamepage extends React.Component {
+class Boardgamepage extends Component {
 
     constructor(props) {
         super(props);
@@ -70,8 +73,7 @@ class Boardgamepage extends React.Component {
                         <h5>Published:</h5>
                         {this.state.game.yearpublished}
                     </div>
-                    {this.renderPlaytime(this.state.game)}
-                    
+                    {this.renderPlaytime()}
                 </div>
             );
         }
@@ -81,24 +83,31 @@ class Boardgamepage extends React.Component {
     }
 
     //Renders playtime correctly according to playtimes.
-    renderPlaytime(game) {
+    renderPlaytime() {
+        let game = this.state.game;
         let playtime = "";
-        if(game.minplaytime === game.maxplaytime) {
-            playtime = <p>{game.maxplaytime}</p>
+        if(game) {
+            if(game.minplaytime === game.maxplaytime) {
+                playtime = <p>{game.maxplaytime}</p>
+            }
+            else {
+                playtime = <p>{game.minplaytime} - {game.maxplaytime}</p>
+            }
+    
+            return (
+                <div>
+                    <h5>Playtime:</h5>
+                    {playtime}
+                </div>
+            );
         }
         else {
-            playtime = <p>{game.minplaytime} - {game.maxplaytime}</p>
+            return (<div></div>);
         }
-
-        return (
-            <div>
-                <h5>Playtime:</h5>
-                {playtime}
-            </div>
-        );
     }
 
     render() {
+        console.log(this.state.game);
         return (
             <div >
                 <Head>
@@ -106,8 +115,9 @@ class Boardgamepage extends React.Component {
                     <meta charSet="utf-8" />
                 </Head>
 
-
                 {this.renderThisGame()}
+                
+                {this.state.game && <Recommendations game={this.state.game}></Recommendations>}
             </div>
         );
     }
