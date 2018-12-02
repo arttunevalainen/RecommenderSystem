@@ -33,7 +33,6 @@ const thumbnailimage = {
 
 const boardgamecardstyle = {
     width: '80%',
-    height: '275px',
     backgroundColor: 'white',
     borderRadius: '15px',
     display: 'flex',
