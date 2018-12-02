@@ -8,6 +8,19 @@ import Boardgamelist from './components/Boardgamelist.js';
 
 import './styles/styles.css';
 
+//Styles
+const searchInput = {
+    width: '400px',
+    height: '30px',
+    marginBottom: '20px'
+}
+
+const footer = {
+    position: 'absolute',
+    bot: '5px',
+    left: '30px'
+}
+
 
 class Index extends React.Component {
     
@@ -84,12 +97,14 @@ class Index extends React.Component {
                     }`}
                 </style>
 
-                <h2>Recommender System</h2>
+                <h2>Boardgame Recommender System</h2>
 
-                <label>Search:</label> 
-                <input onChange={this.handleChange}></input>
+                <h4>Search:</h4>
+                <input onChange={this.handleChange} style={searchInput}></input>
 
                 <Boardgamelist search={this.state.boardgamesearch} games={this.state.games}></Boardgamelist>
+                
+                <p style={footer}>By Timo Tuulio and Arttu Nevalainen</p>
             </div>
         )
     }

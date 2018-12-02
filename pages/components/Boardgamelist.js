@@ -6,6 +6,10 @@ import Head from 'next/head';
 import BoardgameCard from './BoardgameCard.js';
 
 
+const listContainer = {
+    margin: 'auto',
+    textAlign: 'center',
+}
 
 class Boardgamelist extends React.Component {
 
@@ -17,7 +21,7 @@ class Boardgamelist extends React.Component {
                 return <BoardgameCard gamedata={game} key={game.name}></BoardgameCard>
             });
             
-            return <div>{cards}</div>
+            return <div style={listContainer}>{cards}</div>
         }
         else {
             return <div>Loading boardgames...</div>

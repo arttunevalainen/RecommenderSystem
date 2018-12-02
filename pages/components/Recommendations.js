@@ -8,7 +8,6 @@ import { getSimilarities } from '../../recommendersalgorithm/recommendersystem.j
 import autoBind from 'react-autobind';
 
 
-
 const recommendBox = {
     display: "flex"
 };
@@ -16,6 +15,12 @@ const recommendBox = {
 const recommendedItem = {
     flex: 1
 };
+
+const recommenderComponent = {
+    border: 'solid 5px black',
+    textAlign: 'center',
+    borderRadius: '10px'
+}
 
 
 class Recommendations extends React.Component {
@@ -54,7 +59,7 @@ class Recommendations extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={recommenderComponent}>
                 <h3>If you like this game, you could also like:</h3>
                 {this.state.recommends && this.renderRecommendations()}
             </div>

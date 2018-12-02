@@ -2,7 +2,7 @@
 //Imports
 import React from 'react';
 
-import Link from 'next/link'
+import Link from 'next/link';
 
 import ListProps from './ListProps.js';
 
@@ -12,26 +12,36 @@ const imagesrc = "http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-
 /** Styles */
 const col = {
     flex: 1,
-    marginTop: "1em"
+    marginTop: "1em",
+    fontSize: '80%'
 };
 
 const colFirst = {
     flex: 1,
-    margin: "auto",
-    marginRight: "1em",
+    margin: 'auto',
+    marginRight: '1em',
 };
 
 const thumbnailimage = {
-    width: "50%",
-    height: "50%"
+    width: '50%',
+    height: '50%'
 };
 
 const boardgamecardstyle = {
-    backgroundColor: "white",
-    borderRadius: "15px",
-    display: "flex",
-    margin: "5px",
+    width: '80%',
+    height: '275px',
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    display: 'flex',
+    margin: 'auto',
+    marginBottom: '15px',
+    cursor: 'pointer'
 };
+
+const boardgamename = {
+    fontSize: '130%'
+};
+
 
 
 class BoardgameCard extends React.Component {
@@ -51,7 +61,7 @@ class BoardgameCard extends React.Component {
                     </style>
 
                     <div style={colFirst}>
-                        <h4>{this.props.gamedata.name}</h4>
+                        <h4 style={boardgamename}>{this.props.gamedata.name}</h4>
                         {this.props.gamedata.thumbnail && <img style={thumbnailimage} src={this.props.gamedata.thumbnail}></img>}
                         {!this.props.gamedata.thumbnail && <img style={thumbnailimage} src={imagesrc}></img>}
                     </div>

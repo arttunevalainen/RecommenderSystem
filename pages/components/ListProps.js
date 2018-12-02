@@ -6,7 +6,8 @@ import React from 'react';
 /** Styles */
 const col = {
     flex: 1,
-    marginTop: "1em"
+    marginTop: "1em",
+    fontSize: '80%'
 };
 
 const liststyle = {

@@ -91,7 +91,7 @@ class Boardgamepage extends Component {
                 playtime = <p>{game.maxplaytime}</p>
             }
             else {
-                playtime = <p>{game.minplaytime} - {game.maxplaytime}</p>
+                playtime = <p>{game.minplaytime} - {game.maxplaytime} minutes.</p>
             }
     
             return (
@@ -109,7 +109,7 @@ class Boardgamepage extends Component {
     render() {
         console.log(this.state.game);
         return (
-            <div >
+            <div>
                 <Head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta charSet="utf-8" />
