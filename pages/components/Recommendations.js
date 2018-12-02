@@ -19,7 +19,8 @@ const recommendedItem = {
 const recommenderComponent = {
     border: 'solid 5px black',
     textAlign: 'center',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    backgroundColor: 'white'
 }
 
 

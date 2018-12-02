@@ -5,9 +5,8 @@ import React from 'react';
 
 /** Styles */
 const col = {
-    flex: 1,
     marginTop: "1em",
-    fontSize: '80%'
+    fontSize: '100%'
 };
 
 const liststyle = {
@@ -16,13 +15,17 @@ const liststyle = {
     padding: 0,
 };
 
+const listitem = {
+    width: '125px'
+}
+
 class ListProps extends React.Component {
 
     renderList() {
 
         if(this.props.listprops) {
             let listitems = this.props.listprops.map(function(item) {
-                return <li key={item}>{item}</li>
+                return <li style={listitem} key={item}>{item}</li>
             });
     
             return <ul style={liststyle}>{listitems}</ul>
@@ -30,7 +33,6 @@ class ListProps extends React.Component {
         else {
             return <div></div>
         }
-        
     }
 
     render() {

@@ -16,6 +16,10 @@ const col = {
     fontSize: '80%'
 };
 
+const colComponent = {
+    flex: 1
+}
+
 const colFirst = {
     flex: 1,
     margin: 'auto',
@@ -23,8 +27,8 @@ const colFirst = {
 };
 
 const thumbnailimage = {
-    width: '50%',
-    height: '50%'
+    width: '30%',
+    height: '30%'
 };
 
 const boardgamecardstyle = {
@@ -66,8 +70,8 @@ class BoardgameCard extends React.Component {
                         {!this.props.gamedata.thumbnail && <img style={thumbnailimage} src={imagesrc}></img>}
                     </div>
 
-                    <ListProps listprops={this.props.gamedata.categories} listname="Categories"></ListProps>
-                    <ListProps listprops={this.props.gamedata.mechanics} listname="Mechanics"></ListProps>
+                    <ListProps style={colComponent} listprops={this.props.gamedata.categories} listname="Categories"></ListProps>
+                    <ListProps style={colComponent} listprops={this.props.gamedata.mechanics} listname="Mechanics"></ListProps>
 
                     <div style={col}>
                         <div>

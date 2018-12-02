@@ -9,8 +9,34 @@ import ListProps from './components/ListProps.js';
 import Recommendations from './components/Recommendations.js';
 
 
-
 const imagesrc = "http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png";
+
+
+
+const flexbody = {
+    display: 'flex'
+}
+
+const row = {
+    flexDirection: 'row',
+    display: 'flex',
+    width: '100%'
+}
+
+const rowComponent = {
+    width: '100px'
+}
+
+const thumbnailComponent = {
+    marginRight: '20px',
+    flexDirection: 'column',
+    display: 'flex',
+}
+
+const descriptionstyles = {
+    margin: '30px'
+}
+
 
 
 class Boardgamepage extends Component {
@@ -54,26 +80,33 @@ class Boardgamepage extends Component {
             return (
                 <div>
                     <div>Game id: {this.state.game.id}</div>
-                    <div>
-                        <h4>{this.state.game.name}</h4>
-                        {this.state.game.thumbnail && <img src={this.state.game.thumbnail}></img>}
-                        {!this.state.game.thumbnail && <img src={imagesrc}></img>}
+
+                    <div style={flexbody}>
+                        <div style={thumbnailComponent}>
+                            <h4>{this.state.game.name}</h4>
+                            {this.state.game.thumbnail && <img src={this.state.game.thumbnail}></img>}
+                            {!this.state.game.thumbnail && <img src={imagesrc}></img>}
+                        </div>
+
+                        <div style={row}>
+                            <ListProps style={rowComponent} listprops={this.state.game.categories} listname="Categories"></ListProps>
+                            <ListProps style={rowComponent} listprops={this.state.game.mechanics} listname="Mechanics"></ListProps>
+                            {this.state.game.designers && <ListProps style={rowComponent} listprops={this.state.game.designers} listname="Designers"></ListProps>}
+                            {this.state.game.artists && <ListProps style={rowComponent} listprops={this.state.game.artists} listname="Artists"></ListProps>}
+                            {this.state.game.publishers && <ListProps style={rowComponent} listprops={this.state.game.publishers} listname="Publishers"></ListProps>}
+
+                            <div style={rowComponent}>
+                                <h5>Published:</h5>
+                                {this.state.game.yearpublished}
+                            </div>
+                            {this.renderPlaytime()}
+                        </div>
                     </div>
 
-                    <ListProps listprops={this.state.game.categories} listname="Categories"></ListProps>
-                    <ListProps listprops={this.state.game.mechanics} listname="Mechanics"></ListProps>
-                    <ListProps listprops={this.state.game.designers} listname="Designers"></ListProps>
-                    <ListProps listprops={this.state.game.artists} listname="Artists"></ListProps>
-                    <ListProps listprops={this.state.game.publishers} listname="Publishers"></ListProps>
-                    <div>
+                    <div style={descriptionstyles}>
                         <h5>Description:</h5>
                         {this.state.game.description}
                     </div>
-                    <div>
-                        <h5>Published:</h5>
-                        {this.state.game.yearpublished}
-                    </div>
-                    {this.renderPlaytime()}
                 </div>
             );
         }
@@ -95,7 +128,7 @@ class Boardgamepage extends Component {
             }
     
             return (
-                <div>
+                <div style={rowComponent}>
                     <h5>Playtime:</h5>
                     {playtime}
                 </div>
@@ -114,6 +147,13 @@ class Boardgamepage extends Component {
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta charSet="utf-8" />
                 </Head>
+
+                <style jsx global>{`
+                    body { 
+                        background: burlywood;
+                        color: black;
+                    }`}
+                </style>
 
                 {this.renderThisGame()}
                 
