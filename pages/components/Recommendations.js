@@ -40,7 +40,12 @@ class Recommendations extends React.Component {
 
     renderRecommendations() {
         if(this.state.recommends) {
-            return <div></div>
+
+            let recommendedItems = this.state.recommends.map(function(item) {
+                return <RecommendedItem style={recommendedItem} key={item[0].id} item={item}></RecommendedItem>
+            });
+    
+            return <div style={recommendBox}>{recommendedItems}</div>
         }
         else {
             return <div>Loading recommendations...</div>
@@ -49,7 +54,7 @@ class Recommendations extends React.Component {
 
     render() {
         return (
-            <div style={recommendBox}>
+            <div>
                 <h3>If you like this game, you could also like:</h3>
                 {this.state.recommends && this.renderRecommendations()}
             </div>
