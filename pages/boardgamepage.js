@@ -5,7 +5,7 @@ import { Component } from 'react';
 import Head from 'next/head';
 import autoBind from 'react-autobind';
 
-import ListProps from './components/ListProps.js';
+import PropList from './components/PropList.js';
 import Recommendations from './components/Recommendations.js';
 
 
@@ -24,6 +24,7 @@ const row = {
 }
 
 const rowComponent = {
+    flex: 1,
     width: '100px'
 }
 
@@ -77,8 +78,10 @@ class Boardgamepage extends Component {
     renderThisGame() {
         if(this.state.game) {
             console.log(this.state.game);
+            // <Link href="/" replace><a>Go to frontpage</a></Link>
             return (
                 <div>
+
                     <div>Game id: {this.state.game.id}</div>
 
                     <div style={flexbody}>
@@ -89,11 +92,11 @@ class Boardgamepage extends Component {
                         </div>
 
                         <div style={row}>
-                            <ListProps style={rowComponent} listprops={this.state.game.categories} listname="Categories"></ListProps>
-                            <ListProps style={rowComponent} listprops={this.state.game.mechanics} listname="Mechanics"></ListProps>
-                            {this.state.game.designers && <ListProps style={rowComponent} listprops={this.state.game.designers} listname="Designers"></ListProps>}
-                            {this.state.game.artists && <ListProps style={rowComponent} listprops={this.state.game.artists} listname="Artists"></ListProps>}
-                            {this.state.game.publishers && <ListProps style={rowComponent} listprops={this.state.game.publishers} listname="Publishers"></ListProps>}
+                            <PropList style={rowComponent} listprops={this.state.game.categories} listname="Categories"></PropList>
+                            <PropList style={rowComponent} listprops={this.state.game.mechanics} listname="Mechanics"></PropList>
+                            {this.state.game.designers && <PropList style={rowComponent} listprops={this.state.game.designers} listname="Designers"></PropList>}
+                            {this.state.game.artists && <PropList style={rowComponent} listprops={this.state.game.artists} listname="Artists"></PropList>}
+                            {this.state.game.publishers && <PropList style={rowComponent} listprops={this.state.game.publishers} listname="Publishers"></PropList>}
 
                             <div style={rowComponent}>
                                 <h5>Published:</h5>

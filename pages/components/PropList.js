@@ -5,8 +5,11 @@ import React from 'react';
 
 /** Styles */
 const col = {
-    marginTop: "1em",
-    fontSize: '100%'
+    fontSize: '100%',
+    width: '20%',
+    margin: '0px',
+    marginTop: '20px',
+    marginBottom: '20px'
 };
 
 const liststyle = {
@@ -15,17 +18,21 @@ const liststyle = {
     padding: 0,
 };
 
-const listitem = {
-    width: '125px'
+const listItem = {
+    fontSize: '17px'
 }
 
-class ListProps extends React.Component {
+const title = {
+    marginTop: '0px'
+}
+
+class PropList extends React.Component {
 
     renderList() {
 
         if(this.props.listprops) {
             let listitems = this.props.listprops.map(function(item) {
-                return <li style={listitem} key={item}>{item}</li>
+                return <li style={listItem} key={item}>{item}</li>
             });
     
             return <ul style={liststyle}>{listitems}</ul>
@@ -38,11 +45,11 @@ class ListProps extends React.Component {
     render() {
         return (
             <div style={col}>
-                <h5>{this.props.listname}:</h5>
+                <h5 style={title}>{this.props.listname}:</h5>
                 {this.renderList()}
             </div>
         );
     }
 }
 
-export default ListProps;
+export default PropList;

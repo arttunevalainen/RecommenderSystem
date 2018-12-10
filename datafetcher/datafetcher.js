@@ -22,7 +22,7 @@ async function getData() {
     let usedIds = [];
     let games = { "games" : [] };
 
-    for(let i = 0; i < 100; i++) {
+    for(let i = 0; i < 500; i++) {
         let randomNumber = Math.floor(Math.random() * (260000 - 1)) + 1;
         console.log(randomNumber);
 

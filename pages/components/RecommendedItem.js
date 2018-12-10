@@ -23,7 +23,7 @@ class RecommendedItem extends React.Component {
 
     renderSimilarity() {
         if(this.props.item) {
-            const number = Math.round( this.props.item[1] * 10 ) / 10;
+            const number = parseFloat(this.props.item[1].toFixed(2));
             const percentage = number * 100;
             return (
                 <p>Similarity {percentage} %</p>
@@ -31,6 +31,21 @@ class RecommendedItem extends React.Component {
         }
         else {
             <p>Loading...</p>
+        }
+    }
+
+    roundNumber(num, scale) {
+        if(!("" + num).includes("e")) {
+            return +(Math.round(num + "e+" + scale)  + "e-" + scale);
+        } 
+        else {
+            var arr = ("" + num).split("e");
+            var sig = ""
+            if(+arr[1] + scale > 0) {
+                sig = "+";
+            }
+
+            return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
         }
     }
 

@@ -2,7 +2,6 @@
 const gamedata = require('../datafetcher/Jsondata.json');
 
 
-
 //This is where we can make recommendersystem
 export async function getSimilarities(gameID) {
     let similarityArray = [];
@@ -25,19 +24,24 @@ export async function getSimilarities(gameID) {
         // Get each category from the original game to an array
         for (let i = 0; i < game.categories.length; i++) {
             origGameCat[i] = game.categories[i];
-            //console.log("- " + origGameCat[i]);
+            console.log("- " + origGameCat[i]);
         }
         // Get each mechanics from the original game to an array
         for (let i = 0; i < game.mechanics.length; i++) {
             origGameMech[i] = game.mechanics[i];
-            //console.log("* " + origGameMech[i]);
+            console.log("* " + origGameMech[i]);
         }
 
         // Compare each game in the json-file with the game given to us
         for (let i = 0; i < gamedata.games.length; i++) {
-            //console.log("------------Round: " + (i + 1));
+            console.log("------------Round: " + (i + 1));
             // Now we compare only categories and mechanics
-            similarityArray[i] = compareGames(game, gamedata.games[i], origGameCat, origGameMech);
+            if (game.id != gamedata.games[i].id) {
+                similarityArray[i] = compareGames(game, gamedata.games[i], origGameCat, origGameMech);
+            }
+            else {
+                similarityArray[i] = [game, 0];
+            }
         }
 
         // Find the six most similar games to the original game
@@ -54,15 +58,14 @@ export async function getSimilarities(gameID) {
         gamesToBeRecommended, swap these two. Then find the new lowest score item*/
         for (let i = gamesToBeRecommended.length; i < similarityArray.length; i ++){
             if (similarityArray[i][0] != game.id && similarityArray[i][1] > lowest[1]) {
-                index = findID(gamesToBeRecommended, lowest[0]);
+                index = findID(gamesToBeRecommended, lowest[0].id);
                 gamesToBeRecommended[index] = similarityArray[i];
                 lowest = findLowest(gamesToBeRecommended);
             }
         }
         //console.log("------------------");
-        console.log(gamesToBeRecommended);
+        //console.log(gamesToBeRecommended);
 
-        
         //Return all similarities in []
         return gamesToBeRecommended;
     }
@@ -81,7 +84,7 @@ function findID(array, id) {
 function findLowest(array) {
     let lowest = array[0];
     for (let k = 1; k < array.length; k++) {
-        if (lowest[1].id > array[k][1]) {
+        if (lowest[1] > array[k][1]) {
             lowest = array[k];
         }
     }
@@ -105,34 +108,43 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech) {
 
     /* Count the amount of categories that match between the original game
     and the one that we want to compare */
-    if (newGame.categories[0] != null){
+    if (typeof newGame.categories !== "undefined" && newGame.categories[0] != null){
         for (let i = 0; i < newGame.categories.length; i++) {
             let newGameCat = newGame.categories[i];
             if (origGameCat.includes(newGameCat)) {
                 sameCategories++;
             }
-            //console.log("- " + newGameCat);
+            console.log("- " + newGameCat);
         }
     }
     // Repeat but with game mechanics instead of categories
-    if (newGame.mechanics[0] != null){
+    if (newGame.mechanics[0] !== null){
         for (let i = 0; i < newGame.mechanics.length; i++) {
             let newGameMech = newGame.mechanics[i];
             if (origGameMech.includes(newGameMech)) {
                 sameMechanics++;
             }
-            //console.log("* " + newGameMech);
+            console.log("* " + newGameMech);
         }
     }
 
-    //console.log("     Same categories and mechanics found: " + sameCategories + ", " + sameMechanics);
+    console.log("     Same categories and mechanics found: " + sameCategories + ", " + sameMechanics);
     /* Calculate similarity by combining the amount of same mechanics and Categories
     and divide that with total amount of keywords in both games */
-    let totalKeywords = newGame.categories.length + newGame.categories.length + origGameCat.length + origGameMech.length;
+    let totalKeywords = 0;
+    if (newGame.categories != "undefined" && newGame.categories != null) {
+        totalKeywords += newGame.categories.length;
+    }
+    if (newGame.mechanics != "undefined" && newGame.mechanics != null) {
+        totalKeywords += newGame.mechanics.length;
+    }
+    totalKeywords += origGameCat.length + origGameMech.length;
+    console.log(sameMechanics + " + " + sameCategories + " / " + totalKeywords);
     let mechCat = 2*(sameMechanics + sameCategories)/totalKeywords;
+    console.log("Similarity is " + mechCat);
     let similarity = [newGame, mechCat];
 
     return similarity;
 }
 
-//getSimilarities(gamedata.games[7].id);
+//getSimilarities(gamedata.games[34].id);
