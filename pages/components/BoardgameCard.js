@@ -27,8 +27,8 @@ const titleAndImage = {
 }
 
 const thumbnailimage = {
-    width: '50%',
-    height: '50%'
+    width: '60%',
+    height: '60%'
 };
 
 const smallText = {
@@ -37,7 +37,7 @@ const smallText = {
 
 const boardgamecardstyle = {
     width: '80%',
-    backgroundColor: 'white',
+    backgroundColor: '#c6dbff',
     borderRadius: '15px',
     cursor: 'pointer',
     display: 'flex',

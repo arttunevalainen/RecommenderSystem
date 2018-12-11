@@ -24,17 +24,17 @@ export async function getSimilarities(gameID) {
         // Get each category from the original game to an array
         for (let i = 0; i < game.categories.length; i++) {
             origGameCat[i] = game.categories[i];
-            console.log("- " + origGameCat[i]);
+            //console.log("- " + origGameCat[i]);
         }
         // Get each mechanics from the original game to an array
         for (let i = 0; i < game.mechanics.length; i++) {
             origGameMech[i] = game.mechanics[i];
-            console.log("* " + origGameMech[i]);
+            //console.log("* " + origGameMech[i]);
         }
 
         // Compare each game in the json-file with the game given to us
         for (let i = 0; i < gamedata.games.length; i++) {
-            console.log("------------Round: " + (i + 1));
+            //console.log("------------Round: " + (i + 1));
             // Now we compare only categories and mechanics
             if (game.id != gamedata.games[i].id) {
                 similarityArray[i] = compareGames(game, gamedata.games[i], origGameCat, origGameMech);
@@ -114,7 +114,7 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech) {
             if (origGameCat.includes(newGameCat)) {
                 sameCategories++;
             }
-            console.log("- " + newGameCat);
+            //console.log("- " + newGameCat);
         }
     }
     // Repeat but with game mechanics instead of categories
@@ -124,11 +124,11 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech) {
             if (origGameMech.includes(newGameMech)) {
                 sameMechanics++;
             }
-            console.log("* " + newGameMech);
+            //console.log("* " + newGameMech);
         }
     }
 
-    console.log("     Same categories and mechanics found: " + sameCategories + ", " + sameMechanics);
+    //console.log("     Same categories and mechanics found: " + sameCategories + ", " + sameMechanics);
     /* Calculate similarity by combining the amount of same mechanics and Categories
     and divide that with total amount of keywords in both games */
     let totalKeywords = 0;
@@ -139,9 +139,9 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech) {
         totalKeywords += newGame.mechanics.length;
     }
     totalKeywords += origGameCat.length + origGameMech.length;
-    console.log(sameMechanics + " + " + sameCategories + " / " + totalKeywords);
+    //console.log(sameMechanics + " + " + sameCategories + " / " + totalKeywords);
     let mechCat = 2*(sameMechanics + sameCategories)/totalKeywords;
-    console.log("Similarity is " + mechCat);
+    //console.log("Similarity is " + mechCat);
     let similarity = [newGame, mechCat];
 
     return similarity;

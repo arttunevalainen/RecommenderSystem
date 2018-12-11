@@ -17,10 +17,10 @@ const recommendedItem = {
 };
 
 const recommenderComponent = {
-    border: 'solid 5px black',
+    border: 'solid 10px #c6dbff',
     textAlign: 'center',
-    borderRadius: '10px',
-    backgroundColor: 'white',
+    borderRadius: '40px',
+    backgroundColor: '#c6dbff',
     height: '300px'
 }
 

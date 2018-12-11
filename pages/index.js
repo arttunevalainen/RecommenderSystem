@@ -21,6 +21,12 @@ const footer = {
     left: '30px'
 }
 
+const logostyles = {
+    opacity: '0.5',
+    width: '200px',
+    height: '150px',
+}
+
 
 class Index extends React.Component {
     
@@ -92,12 +98,16 @@ class Index extends React.Component {
 
                 <style jsx global>{`
                     body { 
-                        background: burlywood;
+                        background: #f7faff;
                         color: black;
                     }`}
                 </style>
 
-                <h2>Boardgame Recommender System</h2>
+                <img style={logostyles} src="../static/logo.png"></img>
+                
+                <h2>
+                    Boardgame Recommender System
+                </h2>
 
                 <h4>Search:</h4>
                 <input onChange={this.handleChange} style={searchInput}></input>

@@ -37,8 +37,7 @@ class Boardgamelist extends React.Component {
                 </Head>
 
                 <style jsx global>{`
-                    body { 
-                        background: burlywood;
+                    body {
                         color: black
                     }`}
                 </style>

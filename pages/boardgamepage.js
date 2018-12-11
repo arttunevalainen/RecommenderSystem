@@ -23,21 +23,27 @@ const row = {
     width: '100%'
 }
 
-const rowComponent = {
-    flex: 1,
-    width: '100px'
+const publisherAndPlayTimeRow = {
+    flexDirection: 'row',
+    display: 'flex',
+    width: '100%'
 }
 
 const thumbnailComponent = {
     marginRight: '20px',
-    flexDirection: 'column',
-    display: 'flex',
+}
+
+const publisherAndPlayTime = {
+    width: '20%'
 }
 
 const descriptionstyles = {
-    margin: '30px'
+    marginRight: '30px'
 }
 
+const pagestyles = {
+    marginLeft: '30px'
+}
 
 
 class Boardgamepage extends Component {
@@ -80,36 +86,38 @@ class Boardgamepage extends Component {
             console.log(this.state.game);
             // <Link href="/" replace><a>Go to frontpage</a></Link>
             return (
-                <div>
+                <div style={pagestyles}>
 
                     <div>Game id: {this.state.game.id}</div>
 
-                    <div style={flexbody}>
-                        <div style={thumbnailComponent}>
+                    <div style={thumbnailComponent}>
                             <h4>{this.state.game.name}</h4>
                             {this.state.game.thumbnail && <img src={this.state.game.thumbnail}></img>}
                             {!this.state.game.thumbnail && <img src={imagesrc}></img>}
                         </div>
 
+                    <div style={flexbody}>
                         <div style={row}>
-                            <PropList style={rowComponent} listprops={this.state.game.categories} listname="Categories"></PropList>
-                            <PropList style={rowComponent} listprops={this.state.game.mechanics} listname="Mechanics"></PropList>
-                            {this.state.game.designers && <PropList style={rowComponent} listprops={this.state.game.designers} listname="Designers"></PropList>}
-                            {this.state.game.artists && <PropList style={rowComponent} listprops={this.state.game.artists} listname="Artists"></PropList>}
-                            {this.state.game.publishers && <PropList style={rowComponent} listprops={this.state.game.publishers} listname="Publishers"></PropList>}
-
-                            <div style={rowComponent}>
-                                <h5>Published:</h5>
-                                {this.state.game.yearpublished}
-                            </div>
-                            {this.renderPlaytime()}
+                            <PropList listprops={this.state.game.categories} listname="Categories"></PropList>
+                            <PropList listprops={this.state.game.mechanics} listname="Mechanics"></PropList>
+                            {this.state.game.designers && <PropList listprops={this.state.game.designers} listname="Designers"></PropList>}
+                            {this.state.game.artists && <PropList listprops={this.state.game.artists} listname="Artists"></PropList>}
+                            
                         </div>
                     </div>
 
-                    <div style={descriptionstyles}>
-                        <h5>Description:</h5>
-                        {this.state.game.description}
+                     <div style={publisherAndPlayTimeRow}>
+                        <div style={publisherAndPlayTime}>
+                            <h5>Published:</h5>
+                            <p>{this.state.game.yearpublished}</p>
+                        </div>
+
+                        {this.state.game.publishers && <PropList listprops={this.state.game.publishers} listname="Publishers"></PropList>}
+                        
+                        {this.renderPlaytime()}
                     </div>
+
+                    {this.renderDescription()}
                 </div>
             );
         }
@@ -131,7 +139,7 @@ class Boardgamepage extends Component {
             }
     
             return (
-                <div style={rowComponent}>
+                <div style={publisherAndPlayTime}>
                     <h5>Playtime:</h5>
                     {playtime}
                 </div>
@@ -140,6 +148,19 @@ class Boardgamepage extends Component {
         else {
             return (<div></div>);
         }
+    }
+
+    renderDescription() {
+
+        let line = this.state.game.description.replace(/<[^>]+>/g, '\n');
+        line = line.replace(/&quot;/g, '"');
+        
+        return (
+            <div style={descriptionstyles}>
+                <h5>Description:</h5>
+                <p>{line}</p>
+            </div>
+        );
     }
 
     render() {
@@ -153,7 +174,7 @@ class Boardgamepage extends Component {
 
                 <style jsx global>{`
                     body { 
-                        background: burlywood;
+                        background: #f7faff;
                         color: black;
                     }`}
                 </style>
