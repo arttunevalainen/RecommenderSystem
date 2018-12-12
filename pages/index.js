@@ -9,6 +9,12 @@ import Boardgamelist from './components/Boardgamelist.js';
 import './styles/styles.css';
 
 //Styles
+const mainContainer = {
+    backgroundColor: '#f7faff',
+    textAlign: 'center',
+    margin: 'auto'
+}
+
 const searchInput = {
     width: '400px',
     height: '30px',
@@ -27,6 +33,12 @@ const logostyles = {
     height: '150px',
 }
 
+const searchTitle = {
+    textAlign: 'center',
+    fontSize: '1.2em',
+    margin: '5px 0px 5px'
+}
+
 
 class Index extends React.Component {
     
@@ -40,13 +52,33 @@ class Index extends React.Component {
     //Before component is rendered
     componentDidMount() {
         this.getData().then((data) => {
-            this.setState({games: data.games});
+            let games = this.sortGames(data.games);
+
+            this.setState({games: games});
         });
     }
 
     //Fetch json
     async getData() {
         return await import('../datafetcher/Jsondata.json');
+    }
+
+    sortGames(games) {
+        games.sort(function(a, b) {
+            var nameA = a.name.toUpperCase();
+            var nameB = b.name.toUpperCase();
+            if (nameA < nameB) {
+              return -1;
+            }
+
+            if (nameA > nameB) {
+              return 1;
+            }
+            // names must be equal
+            return 0;
+        });
+
+        return games;
     }
 
     //Handle changes in search field
@@ -85,12 +117,15 @@ class Index extends React.Component {
                 newgames.push(jsongame);
             }
         }
-        this.setState({ games: newgames });
+
+        let sortedGames = this.sortGames(newgames);
+
+        this.setState({ games: sortedGames });
     }
 
     render() {
         return (
-            <div className="mainContainer">
+            <div style={mainContainer}>
                 <Head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta charSet="utf-8" />
@@ -106,10 +141,10 @@ class Index extends React.Component {
                 <img style={logostyles} src="../static/logo.png"></img>
                 
                 <h2>
-                    Boardgame Recommender System
+                    Boardgame Recommendations
                 </h2>
 
-                <h4>Search:</h4>
+                <h5 style={searchTitle}>Search:</h5>
                 <input onChange={this.handleChange} style={searchInput}></input>
 
                 <Boardgamelist search={this.state.boardgamesearch} games={this.state.games}></Boardgamelist>

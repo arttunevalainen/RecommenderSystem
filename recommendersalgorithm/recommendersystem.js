@@ -66,6 +66,19 @@ export async function getSimilarities(gameID) {
         //console.log("------------------");
         //console.log(gamesToBeRecommended);
 
+        //Remove 0% choises
+        for(let i = 0; i < gamesToBeRecommended.length; i++) {
+            if(gamesToBeRecommended[i][1] === 0) {
+                gamesToBeRecommended.splice(i, 1);
+                i--;
+            }
+        }
+
+        //Sort games by similarity
+        gamesToBeRecommended.sort(function (a, b) {
+            return b[1] - a[1];
+        });
+
         //Return all similarities in []
         return gamesToBeRecommended;
     }

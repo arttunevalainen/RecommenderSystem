@@ -27,8 +27,8 @@ const titleAndImage = {
 }
 
 const thumbnailimage = {
-    width: '60%',
-    height: '60%'
+    width: '40%',
+    height: '40%'
 };
 
 const smallText = {
@@ -51,7 +51,10 @@ const boardgamename = {
 };
 
 const title = {
-    marginTop: '0px'
+    marginLeft: '20px',
+    textAlign: 'center',
+    marginTop: '0px',
+    fontSize: '15px'
 };
 
 
