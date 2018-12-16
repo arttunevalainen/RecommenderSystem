@@ -47,11 +47,11 @@ const boardgamecardstyle = {
 };
 
 const boardgamename = {
-    fontSize: '130%'
+    fontSize: '150%'
 };
 
 const title = {
-    marginLeft: '20px',
+    marginLeft: '0px',
     textAlign: 'center',
     marginTop: '0px',
     fontSize: '15px'

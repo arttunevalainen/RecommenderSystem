@@ -24,7 +24,7 @@ const listItem = {
 
 const title = {
     marginTop: '0px',
-    fontSize: '15px'
+    fontSize: '20px'
 }
 
 class PropList extends React.Component {

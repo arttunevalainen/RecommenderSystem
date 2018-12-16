@@ -29,8 +29,8 @@ const footer = {
 
 const logostyles = {
     opacity: '0.5',
-    width: '200px',
-    height: '150px',
+    width: '100px',
+    height: '120px',
 }
 
 const searchTitle = {
@@ -140,9 +140,9 @@ class Index extends React.Component {
 
                 <img style={logostyles} src="../static/logo.png"></img>
                 
-                <h2>
+                <h1>
                     Boardgame Recommendations
-                </h2>
+                </h1>
 
                 <h5 style={searchTitle}>Search:</h5>
                 <input onChange={this.handleChange} style={searchInput}></input>
