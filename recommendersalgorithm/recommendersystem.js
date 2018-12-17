@@ -1,5 +1,6 @@
 
 const gamedata = require('../datafetcher/Jsondata.json');
+const userRatings = require('../userratinggenerator/Ratings.json');
 
 
 //This is where we can make recommendersystem
@@ -8,6 +9,8 @@ export async function getSimilarities(gameID) {
     let origGameCat = [];
     let origGameMech = [];
     let gamesToBeRecommended = [];
+    let origGameDesigner;
+    let origGamePlaytime;
     // Number of games the function returns
     const nroRecommendedGames = 6;
 
@@ -31,13 +34,15 @@ export async function getSimilarities(gameID) {
             origGameMech[i] = game.mechanics[i];
             //console.log("* " + origGameMech[i]);
         }
+        origGameDesigner = game.designers;
+        origGamePlaytime = game.maxplaytime;
 
         // Compare each game in the json-file with the game given to us
         for (let i = 0; i < gamedata.games.length; i++) {
             //console.log("------------Round: " + (i + 1));
             // Now we compare only categories and mechanics
             if (game.id != gamedata.games[i].id) {
-                similarityArray[i] = compareGames(game, gamedata.games[i], origGameCat, origGameMech);
+                similarityArray[i] = compareGames(game, gamedata.games[i], origGameCat, origGameMech, origGamePlaytime, origGameDesigner);
             }
             else {
                 similarityArray[i] = [game, 0];
@@ -115,9 +120,11 @@ function switchPlaces(array, i, j) {
 
 /* Function to compare two games.
 Returns an array with the game id and the similarityscore. */
-function compareGames(originalGame, newGame, origGameCat, origGameMech) {
+function compareGames(originalGame, newGame, origGameCat, origGameMech, origGamePlaytime, origGameDesigner) {
     let sameCategories = 0;
     let sameMechanics = 0;
+    let similarPlaytime = 0;
+    let sameDesigner = 0;
 
     /* Count the amount of categories that match between the original game
     and the one that we want to compare */
@@ -140,11 +147,24 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech) {
             //console.log("* " + newGameMech);
         }
     }
-
+    let totalKeywords = 0;
+    // Check if games have similar playtime
+    if (origGamePlaytime > 0 && newGame.maxplaytime > 0) {
+        let minmaxtime = origGamePlaytime - origGamePlaytime*0.2;
+        let maxmaxtime = origGamePlaytime + origGamePlaytime*0.2;
+        totalKeywords += 2;
+        if (minmaxtime <= newGame.maxplaytime && newGame.maxplaytime <= maxmaxtime) {
+            similarPlaytime = 1;
+        }
+    }
+    if (origGameDesigner == newGame.designers && origGameDesigner != "(Uncredited)" && !(typeof origGameDesigner === "undefined")) {
+        totalKeywords += 2;
+        sameDesigner++;
+        console.log("Juhuu");
+    }
     //console.log("     Same categories and mechanics found: " + sameCategories + ", " + sameMechanics);
     /* Calculate similarity by combining the amount of same mechanics and Categories
     and divide that with total amount of keywords in both games */
-    let totalKeywords = 0;
     if (newGame.categories != "undefined" && newGame.categories != null) {
         totalKeywords += newGame.categories.length;
     }
@@ -152,12 +172,44 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech) {
         totalKeywords += newGame.mechanics.length;
     }
     totalKeywords += origGameCat.length + origGameMech.length;
+    let userScore = userRater(newGame, originalGame);
     //console.log(sameMechanics + " + " + sameCategories + " / " + totalKeywords);
-    let mechCat = 2*(sameMechanics + sameCategories)/totalKeywords;
+    let mechCat = 2*(sameMechanics + sameCategories + similarPlaytime + sameDesigner)/totalKeywords;
     //console.log("Similarity is " + mechCat);
-    let similarity = [newGame, mechCat];
-
+    let similarityScore = 0.75*mechCat + 0.25*userScore;
+    let similarity = [newGame, similarityScore];
+    //console.log("Userscore: " + userScore + ", mechCat: " + mechCat + ", final score: " + similarityScore);
     return similarity;
 }
 
-//getSimilarities(gamedata.games[34].id);
+function userRater(newGame, origGame) {
+    let users = [];
+    let score = 0;
+    let reviewers = 0;
+    //console.log(userRatings.length);
+    //console.log(gamedata.games.length);
+    for (let i = 0; i < userRatings.length; i++) {
+        //console.log(userRatings[i].gameid + " , " + newGame.gameid);
+        if (userRatings[i].gameid == origGame.id && userRatings[i].rating > 3) {
+            users.push(userRatings[i]);
+        }
+    }
+    for (let j = 0; j < userRatings.length; j++) {
+        if (userRatings[j].gameid == newGame.id) {
+            for (let i = 0; i < users.length; i++) {
+                //console.log(users[i].userid + " | " + userRatings.id);
+                if (users[i].userid == userRatings[j].userid) {
+                    reviewers++;
+                    if (userRatings[j].rating > 3) {score++;}
+                    else if (userRatings[j].rating < 3) {score--;}
+                }
+            }
+        }
+    }
+    if (reviewers > 0) {score = score/reviewers;}
+    return score;
+}
+
+getSimilarities(gamedata.games[11].id);
+//console.log(userRatings[1]);
+//console.log(gamedata.games[1]);
