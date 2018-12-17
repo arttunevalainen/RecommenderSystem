@@ -176,7 +176,13 @@ function compareGames(originalGame, newGame, origGameCat, origGameMech, origGame
     //console.log(sameMechanics + " + " + sameCategories + " / " + totalKeywords);
     let mechCat = 2*(sameMechanics + sameCategories + similarPlaytime + sameDesigner)/totalKeywords;
     //console.log("Similarity is " + mechCat);
-    let similarityScore = 0.75*mechCat + 0.25*userScore;
+    let similarityScore;
+    if (mechCat > 0.2) {
+        similarityScore = 0.85*mechCat + 0.15*userScore;
+    }
+    else {
+        similarityScore = mechCat;
+    }
     let similarity = [newGame, similarityScore];
     //console.log("Userscore: " + userScore + ", mechCat: " + mechCat + ", final score: " + similarityScore);
     return similarity;

@@ -44,7 +44,6 @@ async function getData() {
                     boardgame.playingtime = parseInt(boardgame.playingtime._text);
                     boardgame.minplaytime = parseInt(boardgame.minplaytime._text);
                     boardgame.maxplaytime = parseInt(boardgame.maxplaytime._text);
-                    boardgame.age = parseInt(boardgame.age._text);
                     boardgame.description = boardgame.description._text;
 
                     if(boardgame.image) {

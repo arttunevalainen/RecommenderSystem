@@ -1,7 +1,7 @@
 
 
 const fs = require('fs');
-const gamedata = require('../datafetcher/Jsondata1000.json');
+const gamedata = require('../datafetcher/Jsondata.json');
 
 
 //Generates users and users rate randomly some of the boardgames in JSON.
@@ -35,7 +35,7 @@ function generateRatings() {
     //Saving ratings to JSON.
     let ratings = JSON.stringify(userRatings);
 
-    fs.writeFile('Ratings1000.json', ratings, function (err) {
+    fs.writeFile('Ratings.json', ratings, function (err) {
         if (err) throw err;
         console.log('Updated!');
     });

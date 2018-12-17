@@ -34,7 +34,7 @@ const thumbnailComponent = {
 }
 
 const publisherAndPlayTime = {
-    width: '20%'
+    width: '20%',
 }
 
 const descriptionstyles = {
@@ -43,6 +43,11 @@ const descriptionstyles = {
 
 const pagestyles = {
     marginLeft: '30px'
+}
+
+const publisherAndPlayTimeTitle = {
+    marginTop: '20px',
+    fontSize: '121%'
 }
 
 
@@ -108,7 +113,7 @@ class Boardgamepage extends Component {
 
                      <div style={publisherAndPlayTimeRow}>
                         <div style={publisherAndPlayTime}>
-                            <h5>Published:</h5>
+                            <h5 style={publisherAndPlayTimeTitle}>Published:</h5>
                             <p>{this.state.game.yearpublished}</p>
                         </div>
 
@@ -132,7 +137,13 @@ class Boardgamepage extends Component {
         let playtime = "";
         if(game) {
             if(game.minplaytime === game.maxplaytime) {
-                playtime = <p>{game.maxplaytime}</p>
+                if(game.maxplaytime === 0) {
+                    playtime = <p>-</p>
+                }
+                else {
+                    playtime = <p>{game.maxplaytime}</p>
+                }
+                
             }
             else {
                 playtime = <p>{game.minplaytime} - {game.maxplaytime} minutes.</p>
@@ -140,7 +151,7 @@ class Boardgamepage extends Component {
     
             return (
                 <div style={publisherAndPlayTime}>
-                    <h5>Playtime:</h5>
+                    <h5 style={publisherAndPlayTimeTitle}>Playtime:</h5>
                     {playtime}
                 </div>
             );
